@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "npx tsc",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon",
     "start": "node dist/index.js",
     "test": "npm run test-ci",
     "test-ci": "if test -d ./test; then echo 'Tests found'; else echo 'No tests found'; exit 0; fi"

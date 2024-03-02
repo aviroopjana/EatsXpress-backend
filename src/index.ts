@@ -1,7 +1,8 @@
 import cors from "cors";
-import express, { Application, Express, Request, Response } from "express";
-import mongoose, { Mongoose } from "mongoose";
-import dotenv from 'dotenv';
+import express, { Application, Request, Response } from "express";
+import mongoose, { Error } from "mongoose";
+import dotenv from "dotenv";
+import authRoute from "./api/routes/auth.route";
 
 const app: Application = express();
 
@@ -20,10 +21,6 @@ app.get("/api/test", (req, res) => {
   res.send("Test Server running successfully");
 });
 
-app.listen(port, () => {
-  console.log(`Server started on ${port}`);
-});
-
 mongoose
   .connect(process.env.MONGO_CONNECTION_STRING as string)
   .then(() => {
@@ -33,3 +30,19 @@ mongoose
     console.error("Error connecting to MongoDB", err);
   });
 
+app.listen(port, () => {
+  console.log(`Server started on ${port}`);
+});
+
+app.use("/api/auth", authRoute);
+
+app.use((err: Error, req, res, next) => {
+  const statusCode: number = 500;
+  const message: string = err.message || "Internal server error";
+
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message
+  })
+});

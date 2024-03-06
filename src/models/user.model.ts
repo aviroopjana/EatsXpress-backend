@@ -36,9 +36,13 @@ const userSchema = new mongoose.Schema({
   city: {
     type: String,
   },
-  country: {
-    type: String,
+  pincode: {
+    type: String
   },
+  accountType: {
+    type: String,
+    required: true
+  }
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);

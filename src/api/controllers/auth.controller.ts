@@ -39,7 +39,7 @@ export const signup = async (
     return next(errorHandler(res, 400, "All fields are required!"));
   }
 
-  const hashedPassword = bcryptjs.hashSync("password", 10);
+  const hashedPassword = bcryptjs.hashSync('password', 10);
 
   const newUser = new User({
     username,
@@ -79,13 +79,13 @@ export const signin = async (
       return next(errorHandler(res, 404, "User not found"));
     }
 
-    const validPassword = bcryptjs.compareSync(password, validUser.password);
+    const validPassword = bcryptjs.compareSync('password', validUser.password);
 
     if (!validPassword) {
       return next(errorHandler(res, 400, "Password is incorrect"))
     };
 
-    const token = jwt.sign(
+    const token = await jwt.sign(
       {
         username: validUser.username,
         password: validUser.password,

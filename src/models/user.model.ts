@@ -1,6 +1,23 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+// Define types
+type AccountType = 'personal' | 'family' | 'business';
+
+interface IUser extends Document {
+  username: string;
+  email: string;
+  password: string;
+  name: string;
+  profilePicture: string;
+  phone: string;
+  address?: string;
+  city?: string;
+  pincode?: string;
+  accountType: AccountType;
+}
+
+// Define schema
+const userSchema: Schema<IUser> = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -43,8 +60,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-}, {timestamps: true});
+}, { timestamps: true });
 
-const User = mongoose.model('User', userSchema);
+// Define and export the model
+const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;

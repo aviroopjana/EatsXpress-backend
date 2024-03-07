@@ -5,12 +5,15 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 type UserRequestBody = {
+  name: string;
   username: string;
   email: string;
   password: string;
-  name: string;
-  phoneNumber: string;
-  profilePicture: string;
+  accountType: string;
+  phone: string;
+  address: string;
+  city: string;
+  pincode: string;
 };
 
 export const signup = async (
@@ -18,7 +21,7 @@ export const signup = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, email, password, name, phoneNumber }: UserRequestBody =
+  const { username, email, password, name, accountType, phone, address, city, pincode }: UserRequestBody =
     req.body;
 
   if (
@@ -26,12 +29,12 @@ export const signup = async (
     !email ||
     !password ||
     !name ||
-    !phoneNumber ||
+    !phone ||
     username === "" ||
     email === "" ||
     password === "" ||
     name === "" ||
-    phoneNumber === ""
+    phone === ""
   ) {
     return next(errorHandler(res, 400, "All fields are required!"));
   }
@@ -43,7 +46,11 @@ export const signup = async (
     email,
     password: hashedPassword,
     name,
-    phoneNumber,
+    phone,
+    accountType,
+    address,
+    city,
+    pincode
   });
 
   try {

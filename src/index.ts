@@ -3,6 +3,7 @@ import express, { Application, Request, Response } from "express";
 import mongoose, { Error } from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./api/routes/auth.route";
+import userRoute from "./api/routes/user.route"
 
 const app: Application = express();
 
@@ -35,6 +36,7 @@ app.listen(port, () => {
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 app.use((err: Error, req, res, next) => {
   const statusCode: number = 500;

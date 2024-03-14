@@ -30,11 +30,13 @@ export const signup = async (
     !password ||
     !name ||
     !phone ||
+    !accountType ||
     username === "" ||
     email === "" ||
     password === "" ||
     name === "" ||
-    phone === ""
+    phone === "" ||
+    accountType === ""
   ) {
     return next(errorHandler(res, 400, "All fields are required!"));
   }

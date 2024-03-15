@@ -92,6 +92,7 @@ export const signin = async (
         id: validUser._id,
         username: validUser.username,
         password: validUser.password,
+        accountType: validUser.accountType
       },
       process.env.JWT_SECRET
     );

@@ -3,7 +3,8 @@ import express, { Application, Request, Response } from "express";
 import mongoose, { Error } from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./api/routes/auth.route";
-import userRoute from "./api/routes/user.route"
+import userRoute from "./api/routes/user.route";
+import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
@@ -13,9 +14,10 @@ const port = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server started");
+app.get('/', (req: Request, res: Response) => {
+  res.send('Server started');
 });
 
 app.get("/api/test", (req, res) => {
@@ -48,3 +50,5 @@ app.use((err: Error, req, res, next) => {
     message
   })
 });
+
+

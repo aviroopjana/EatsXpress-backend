@@ -4,7 +4,7 @@ import { verifyToken } from '../../utils/verifyUser';
 
 const router = express.Router();
 
-router.post('/updateUser/:userId',verifyToken, updateUser);
+router.put('/updateUser/:userId',verifyToken, updateUser);
 router.post('/signout', signout);
 
 export default router;

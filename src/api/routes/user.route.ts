@@ -1,6 +1,6 @@
 import express from 'express';
 import { signout, updateUser } from '../controllers/user.controller';
-import { verifyToken } from '../../utils/verifyUser';
+import { verifyToken } from '../middlewares/verifyUser';
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 
 export const updateUser = async(req, res, next) => {
     if (req.user.id !== req.params.userId) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "You're not allowed to update this user"
         });
     }

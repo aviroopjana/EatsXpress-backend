@@ -89,6 +89,7 @@ export const signin = async (
 
     const token = await jwt.sign(
       {
+        id: validUser._id,
         username: validUser.username,
         password: validUser.password,
       },

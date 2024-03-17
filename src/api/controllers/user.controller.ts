@@ -19,23 +19,23 @@ export const updateUser = async(req, res, next) => {
 
     if (req.body.username) {
         if (req.body.username.length <7 || req.body.username.length>20) {
-            res.status(502).json({
+            return res.status(502).json({
                 message: 'Username length must be between 7 and 20 characters'
             });
         }
         if (req.body.username.includes(' ')) {
-            res.status(503).json({
+            return res.status(503).json({
                 message: "Username can't contain empty spaces"
             });
         }
         if (req.body.username !== req.body.username.toLowerCase()) {
-            res.status(504).json({
+            return res.status(504).json({
                 message: "Username must be in lower case"
             });
         }
-        if(!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
-            res.status(505).json({
-                message: "Username can only contain letters and numbers"
+        if (!req.body.username.match(/^[a-zA-Z0-9_]+$/)) {
+            return res.status(505).json({
+                message: "Username can only contain letters, numbers, and underscores"
             });
         }
     }

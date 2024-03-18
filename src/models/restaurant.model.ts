@@ -12,6 +12,8 @@ interface IRestaurant extends Document {
   location: string;
   owner: Schema.Types.ObjectId;
   estimatedDeliveryTime: Number;
+  deliveryPrice: Number;
+  imageUrl: string;
   cuisines: [];
   menu: IMenuItem[];
 }
@@ -56,6 +58,14 @@ const restaurantSchema: Schema<IRestaurant> = new mongoose.Schema(
     estimatedDeliveryTime: {
       type: Number,
       required: true,
+    },
+    deliveryPrice: {
+      type: Number,
+      required: true
+    },
+    imageUrl: {
+      type: String,
+      required: true
     },
     cuisines: [
       {

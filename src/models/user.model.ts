@@ -14,6 +14,7 @@ interface IUser extends Document {
   city?: string;
   pincode?: string;
   accountType: AccountType;
+  restaurantId?: Schema.Types.ObjectId;
 }
 
 // Define schema
@@ -60,6 +61,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   accountType: {
     type: String,
     required: true
+  },
+  restaurantId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Restaurant',
+    default: null
   }
 }, { timestamps: true });
 

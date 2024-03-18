@@ -10,7 +10,7 @@ interface IMenuItem {
 interface IRestaurant extends Document {
   restaurantName: string;
   location: string;
-  owner: Schema.Types.ObjectId;
+  owner: String;
   estimatedDeliveryTime: Number;
   deliveryPrice: Number;
   imageUrl: string;
@@ -51,7 +51,7 @@ const restaurantSchema: Schema<IRestaurant> = new mongoose.Schema(
       required: true,
     },
     owner: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },

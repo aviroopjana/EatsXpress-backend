@@ -2,7 +2,7 @@ import Restaurant from "../../models/restaurant.model";
 
 export const createRestaurant = async (req, res, next) => {
     try {
-        const { restaurantName, location, estimatedDeliveryTime, cuisines, menu } = req.body;
+        const { restaurantName, location, estimatedDeliveryTime,imageUrl, deliveryPrice, cuisines, menu } = req.body;
         const ownerId = req.user.id;
 
         const restaurant = new Restaurant({
@@ -10,6 +10,8 @@ export const createRestaurant = async (req, res, next) => {
             location,
             owner: ownerId,
             estimatedDeliveryTime,
+            imageUrl,
+            deliveryPrice,
             cuisines,
             menu
         })

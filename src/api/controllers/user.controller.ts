@@ -1,20 +1,10 @@
 import User from "../../models/user.model";
-import bcryptjs from "bcryptjs";
 
 export const updateUser = async(req, res, next) => {
     if (req.user.id !== req.params.userId) {
         return res.status(500).json({
             message: "You're not allowed to update this user"
         });
-    }
-
-    if (req.body.password) {
-        if (req.body.password.length < 8) {
-            res.status(501).json({
-                message: "Password must be atleast 8 characters"
-            });
-        }
-        req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
 
     if (req.body.username) {
@@ -45,7 +35,6 @@ export const updateUser = async(req, res, next) => {
             $set: {
                 username: req.body.username,
                 name: req.body.name,
-                password: req.body.password,
                 email: req.body.email,
                 accountType: req.body.accountType,
                 profilePicture: req.body.profilePicture,

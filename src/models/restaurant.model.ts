@@ -1,7 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 interface IMenuItem {
-  _id: Schema.Types.ObjectId;
+  _id: string;
+  productId: string;
   name: string;
   description?: string;
   price: number;
@@ -10,20 +11,24 @@ interface IMenuItem {
 interface IRestaurant extends Document {
   restaurantName: string;
   location: string;
-  owner: String;
+  owner: string;
   estimatedDeliveryTime: Number;
   deliveryPrice: Number;
   imageUrl: string;
-  cuisines: [];
+  cuisines: string[];
   menu: IMenuItem[];
 }
 
 const menuItemSchema: Schema<IMenuItem> = new mongoose.Schema(
   {
     _id: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
-      default: () => new mongoose.Types.ObjectId(),
+      default: () => new mongoose.Types.ObjectId().toString(),
+    },
+    productId: {
+      type: String,
+      required: true,
     },
     name: {
       type: String,

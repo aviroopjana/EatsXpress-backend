@@ -1,4 +1,5 @@
 import Restaurant from "../../models/restaurant.model";
+import User from "../../models/user.model";
 
 export const createRestaurant = async (req, res, next) => {
     try {
@@ -17,6 +18,8 @@ export const createRestaurant = async (req, res, next) => {
         })
 
         await restaurant.save();
+
+        await User.findByIdAndUpdate(ownerId, { restaurantId: restaurant._id });
 
         return res.status(201).json({
             message: 'Restaurant has been created successfully!',

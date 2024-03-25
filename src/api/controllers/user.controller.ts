@@ -44,6 +44,9 @@ export const updateUser = async(req, res, next) => {
                 pincode: req.body.pincode
             }
         }, {new: true});
+
+        req.user = updateUser;
+
         const {password, ...rest} = updateUser._doc;
         res.status(200).json(rest);
     } catch (error) {

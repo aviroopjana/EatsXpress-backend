@@ -1,15 +1,25 @@
 import express from "express";
-import { createRestaurant } from "../controllers/my_restaurant.controller";
+import {
+  createRestaurant,
+  updateRestaurant,
+} from "../controllers/my_restaurant.controller";
 import { verifyToken } from "../middlewares/verifyUser";
-import { authorizeRestaurantCreation } from "../middlewares/authorizeRestaurant";
+import { authorizeRestaurant } from "../middlewares/authorizeRestaurant";
 
 const router = express.Router();
 
 router.post(
   "/createRestaurant",
   verifyToken,
-  authorizeRestaurantCreation,
+  authorizeRestaurant,
   createRestaurant
+);
+
+router.put(
+  "/updateRestaurant",
+  verifyToken,
+  authorizeRestaurant,
+  updateRestaurant
 );
 
 export default router;

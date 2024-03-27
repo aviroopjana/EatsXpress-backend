@@ -16,7 +16,7 @@ router.post(
 );
 
 router.put(
-  "/updateRestaurant:restaurantId",
+  "/updateRestaurant/:restaurantId",
   verifyToken,
   authorizeRestaurant,
   updateRestaurant

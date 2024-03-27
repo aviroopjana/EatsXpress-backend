@@ -47,7 +47,7 @@ export const createRestaurant = async (req, res, next) => {
 };
 
 export const updateRestaurant = async (req, res, next) => {
-  const { userId } = req.user;
+  const userId = req.user.id;
   const { restaurantId } = req.params;
 
   if (!restaurantId) {
@@ -60,7 +60,7 @@ export const updateRestaurant = async (req, res, next) => {
     return res.status(404).json({ message: "Restaurant not found" });
   }
 
-  if (restaurant.owner.toString() !== userId) {
+  if (restaurant.owner !== userId) {
     return res
       .status(403)
       .json({ message: "You're not allowed to update this restaurant" });

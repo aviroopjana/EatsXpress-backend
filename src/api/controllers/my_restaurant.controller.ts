@@ -117,7 +117,7 @@ export const getRestaurant = async(req, res, next) => {
       return res.status(404).json({ message: 'Restaurant not found'});
     }
 
-    res.json(restaurant);
+    res.json({message: "Get restaurant request successful!", restaurantDetails: restaurant});
   } catch (error) {
     next(error)
   }

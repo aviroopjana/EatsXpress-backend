@@ -5,7 +5,7 @@ export const authorizeRestaurant = async (req, res: Response, next: NextFunction
         // Check if the user account type is business
         if (req.user.accountType !== 'business') {
             return res.status(403).json({
-                message: "Only business accounts are allowed to create and update restaurants"
+                message: "Only business accounts are allowed to create, update and view their restaurants"
             });
         }
 

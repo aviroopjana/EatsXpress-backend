@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createRestaurant,
+  getRestaurant,
   updateRestaurant,
 } from "../controllers/my_restaurant.controller";
 import { verifyToken } from "../middlewares/verifyUser";
@@ -20,6 +21,13 @@ router.put(
   verifyToken,
   authorizeRestaurant,
   updateRestaurant
+);
+
+router.get(
+  "/getRestaurant",
+  verifyToken,
+  authorizeRestaurant,
+  getRestaurant
 );
 
 export default router;

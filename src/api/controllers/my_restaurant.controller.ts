@@ -60,6 +60,8 @@ export const updateRestaurant = async (req, res, next) => {
     return res.status(404).json({ message: "Restaurant not found" });
   }
 
+  console.log(restaurant.owner,userId);
+
   if (restaurant.owner !== userId) {
     return res
       .status(403)
@@ -97,3 +99,26 @@ export const updateRestaurant = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getRestaurant = async(req, res, next) => {
+  const userId = req.user.id;
+
+  const user = await User.findById(userId);
+  
+  if(!user.restaurantId) {
+    return res.status(400).json({ message: 'User does not have a restaurant'});
+  }
+  try {
+    const restaurant = await Restaurant.findOne({
+      owner: user.id
+    })
+
+    if(!restaurant) {
+      return res.status(404).json({ message: 'Restaurant not found'});
+    }
+
+    res.json(restaurant);
+  } catch (error) {
+    next(error)
+  }
+}

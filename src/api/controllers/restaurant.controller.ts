@@ -3,7 +3,7 @@ import Restaurant from "../../models/restaurant.model";
 
 export const searchRestaurant = async (req: Request, res: Response) => {
   try {
-    const city = req.params.city;
+    const location = req.params.location;
 
     const searchQuery = (req.query.searchQuery as string) || "";
     const selectedCuisines = (req.query.selectedCuisines as string) || "";
@@ -12,9 +12,9 @@ export const searchRestaurant = async (req: Request, res: Response) => {
 
     let query: any = {};
 
-    query["city"] = new RegExp(city, "i");
-    const cityCheck = await Restaurant.countDocuments(query);
-    if (cityCheck === 0) {
+    query["location"] = new RegExp(location, "i");
+    const locationCheck = await Restaurant.countDocuments(query);
+    if (locationCheck === 0) {
       return res.status(404).json({
         data: [],
         pagination: {

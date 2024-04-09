@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, InferSchemaType } from "mongoose";
 
 interface IMenuItem {
   _id: string;
@@ -12,8 +12,8 @@ interface IRestaurant extends Document {
   restaurantName: string;
   location: string;
   owner: string;
-  estimatedDeliveryTime: Number;
-  deliveryPrice: Number;
+  estimatedDeliveryTime: number;
+  deliveryPrice: number;
   imageUrl: string;
   cuisines: string[];
   menu: IMenuItem[];
@@ -44,6 +44,8 @@ const menuItemSchema: Schema<IMenuItem> = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+export type MenuItemType = InferSchemaType<typeof menuItemSchema>;
 
 const restaurantSchema: Schema<IRestaurant> = new mongoose.Schema(
   {

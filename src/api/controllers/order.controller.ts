@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
 import Restaurant from "../../models/restaurant.model";
+import dotenv from "dotenv";
 
-const STRIPE = new Stripe(process.env.STRIPE_API_KEY);
+dotenv.config();
+
+const STRIPE = new Stripe(process.env.STRIPE_API_KEY as string);
 
 const FRONTEND_URL = process.env.FRONTEND_URL as string;
 
@@ -29,11 +32,8 @@ export const createCheckoutSession = async(req: Request, res: Response, next: Ne
     try {
       const checkoutSessionRequest: checkoutSessionRequest = req.body;
 
-      console.log(process.env.STRIPE_API_KEY);
-
       const lineitems = await createLineItems(checkoutSessionRequest);
 
-      // Assuming the first item's restaurant is representative for the order
       const representativeRestaurantId = checkoutSessionRequest.cartItems[0].restaurantId;
       const representativeRestaurant = await Restaurant.findById(representativeRestaurantId);
 
@@ -55,12 +55,6 @@ export const createCheckoutSession = async(req: Request, res: Response, next: Ne
 }
 
 const createLineItems = async (checkoutSessionRequest: checkoutSessionRequest) => {
-    // const lineItems = checkoutSessionRequest.cartItems.map((cartItem) => {
-    //     const menuItem = menuItems.find((item) => item._id.toString() === cartItem.menuItemId.toString());
-
-    //     console.log(menuItems);
-
-    //     console.log(cartItem.menuItemId);
 
     const lineItems = [];
 
@@ -82,7 +76,7 @@ const createLineItems = async (checkoutSessionRequest: checkoutSessionRequest) =
         const line_item: Stripe.Checkout.SessionCreateParams.LineItem = {
             price_data: {
                 currency: "inr",
-                unit_amount: menuItem.price,
+                unit_amount: menuItem.price * 100,
                 product_data: {
                     name: menuItem.name,
                 },
@@ -110,7 +104,7 @@ const createSession = async (
             display_name: "Delivery",
             type: "fixed_amount",
             fixed_amount: {
-              amount: deliveryPrice,
+              amount: deliveryPrice * 100,
               currency: "inr",
             },
           },
@@ -121,8 +115,8 @@ const createSession = async (
         orderId,
         restaurantId,
       },
-      success_url: `http://localhost:5173/order-status?success=true`,
-      cancel_url: `http://localhost:5173/detail/${restaurantId}?cancelled=true`,
+      success_url: `${FRONTEND_URL}/order-status?success=true`,
+      cancel_url: `${FRONTEND_URL}/cartDetail/${restaurantId}?cancelled=true`,
     });
   
     return sessionData;
